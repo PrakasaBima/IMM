@@ -133,7 +133,10 @@ export const organization = [
     members: [
       { name: 'Robert Dwi Putra', role: 'General Manager' },
       { name: 'Suparman', role: 'Operational Manager' },
-      { name: 'M Alfi', role: 'CI', team: [{ name: 'Agit', role: 'Staff CI' }] },
+      { name: 'M Alfi', role: 'CI', 
+        team: 
+        [{ name: 'Agit', role: 'Staff CI' }] 
+      },
     ],
   },
   {
