@@ -34,7 +34,7 @@ export default function Structure() {
         </Reveal>
 
         <Reveal className="org">
-          {organization.map((tier) => (
+          {organization.map((tier, ti) => (
             <div className="org-tier" style={{ '--n': tier.members.length }} key={tier.level}>
               {tier.members.map((m, i) => (
                 <Fragment key={m.role}>
@@ -48,7 +48,10 @@ export default function Structure() {
                   )}
                 </Fragment>
               ))}
-              {tier.members.some((m) => m.team) && <span className="org-stem" />}
+              {/* Garis tengah hanya diteruskan bila masih ada tingkat di bawahnya */}
+              {tier.members.some((m) => m.team) && ti < organization.length - 1 && (
+                <span className="org-stem" />
+              )}
             </div>
           ))}
         </Reveal>

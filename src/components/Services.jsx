@@ -1,6 +1,7 @@
 import Reveal from './Reveal.jsx';
 import SectionHead from './SectionHead.jsx';
 import Icon from './Icon.jsx';
+import { Link } from '../router.jsx';
 import { services } from '../data.js';
 
 export default function Services() {
@@ -13,7 +14,13 @@ export default function Services() {
 
         <Reveal className="services-grid">
           {services.map((s, i) => (
-            <article className="service" key={s.title}>
+            <Link
+              to={`/layanan/${s.slug}`}
+              className="service"
+              key={s.slug}
+              // Tombol "kembali" browser dari halaman detail mendarat di bagian Layanan
+              onClick={() => window.history.replaceState(null, '', '/#layanan')}
+            >
               <span className="service-num">{String(i + 1).padStart(2, '0')}</span>
               <span className="service-arrow">
                 <Icon name="arrowUpRight" strokeWidth={2} />
@@ -23,7 +30,7 @@ export default function Services() {
               </div>
               <h3>{s.title}</h3>
               <p>{s.desc}</p>
-            </article>
+            </Link>
           ))}
         </Reveal>
       </div>

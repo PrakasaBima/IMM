@@ -233,7 +233,7 @@ section { padding: clamp(72px, 10vw, 128px) 0; }
   content: ""; position: absolute; left: 50%; top: -28px; width: 1px; height: 28px; background: var(--line);
 }
 /* Cabang tersendiri: bawahan langsung di bawah satu anggota, satu garis lurus */
-.org-branch { grid-row: 2; grid-column: var(--col); display: grid; gap: 28px; padding-top: 28px; }
+.org-branch { grid-row: 2; grid-column: var(--col); display: grid; align-content: start; gap: 28px; padding-top: 28px; }
 .org-tier:not(:first-child) .org-branch .org-card::before {
   display: block; top: calc(-28px - var(--gap)); height: calc(28px + var(--gap));
 }
@@ -257,24 +257,31 @@ section { padding: clamp(72px, 10vw, 128px) 0; }
 .org-card.lead span:not(.org-avatar) { color: #9aa3b2; }
 
 /* ---------- Services ---------- */
-.services-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr);
-  border-top: 1px solid var(--line); border-left: 1px solid var(--line);
-}
+/* 3 kolom (tiap kartu = 2 dari 6 lajur) supaya baris terakhir yang tidak penuh bisa digeser ke tengah */
+.services-grid { display: grid; grid-template-columns: repeat(6, 1fr); }
 .service {
   position: relative;
+  grid-column: span 2;
   padding: 32px 28px 36px;
-  border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  /* Garis tepi per kartu; garis yang bersebelahan saling menumpuk jadi 1px */
+  box-shadow:
+    1px 0 0 var(--line), 0 1px 0 var(--line), 1px 1px 0 var(--line),
+    inset 1px 0 0 var(--line), inset 0 1px 0 var(--line);
   display: grid; align-content: start; gap: 14px;
   transition: background .25s;
 }
-.service:hover { background: var(--bg-soft); }
+@media (min-width: 1025px) {
+  .service:nth-child(3n+1):nth-last-child(2) { grid-column: 2 / span 2; }
+  .service:nth-child(3n+1):last-child { grid-column: 3 / span 2; }
+}
+.service:hover, .service:focus-visible { background: var(--bg-soft); }
+.service:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
 .service-num { font-size: 13px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
 .service-arrow {
   position: absolute; top: 30px; right: 26px; width: 18px; height: 18px; color: var(--accent);
   opacity: 0; transform: translate(-6px, 6px); transition: opacity .25s, transform .25s;
 }
-.service:hover .service-arrow { opacity: 1; transform: none; }
+.service:hover .service-arrow, .service:focus-visible .service-arrow { opacity: 1; transform: none; }
 .service-icon {
   width: 44px; height: 44px; border-radius: 12px; background: var(--accent-soft); color: var(--accent);
   display: grid; place-items: center; margin: 8px 0 6px;
@@ -284,6 +291,32 @@ section { padding: clamp(72px, 10vw, 128px) 0; }
 .service-icon svg { width: 22px; height: 22px; }
 .service h3 { font-size: 18px; }
 .service p { color: var(--ink-2); font-size: 15px; }
+
+/* ---------- Detail layanan ---------- */
+.btn-back { height: 40px; padding: 0 18px; font-size: 14px; }
+.btn-back svg { transform: scaleX(-1); }
+.btn-back:hover svg { transform: scaleX(-1) translateX(3px); }
+.detail-hero { background: var(--bg-soft); border-bottom: 1px solid var(--line); padding: clamp(48px, 7vw, 96px) 0; }
+.detail-hero-inner { display: grid; justify-items: start; gap: 12px; max-width: 760px; }
+.detail-hero .service-icon { margin: 12px 0 4px; }
+.detail-hero h1 { font-size: clamp(32px, 5vw, 56px); letter-spacing: -0.03em; }
+.detail-hero p { color: var(--ink-2); font-size: 18px; max-width: 640px; }
+.detail-hero .btn { margin-top: 12px; }
+.detail-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: clamp(32px, 5vw, 72px); align-items: start; }
+.detail-grid.no-media { grid-template-columns: 1fr; }
+.detail-grid h2 { font-size: 22px; margin-bottom: 20px; }
+.detail-gallery { display: grid; grid-template-columns: repeat(2, 1fr); grid-auto-rows: 220px; gap: 16px; }
+/* Jumlah foto ganjil: foto pertama dibuat lebar supaya grid tetap rapi */
+.detail-gallery .shot:first-child:nth-last-child(odd) { grid-column: span 2; }
+.detail-cta {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px;
+  margin-top: clamp(56px, 8vw, 96px); padding: clamp(28px, 4vw, 48px);
+  background: var(--ink); color: #fff; border-radius: calc(var(--radius) * 1.5);
+}
+.detail-cta h2 { font-size: clamp(24px, 3vw, 34px); }
+.detail-cta p { color: #b4bccb; margin-top: 8px; }
+.detail-cta .btn-primary { background: #fff; color: var(--ink); }
+.detail-cta .btn-primary:hover { background: var(--accent); color: #fff; }
 
 .tags { display: flex; flex-wrap: wrap; gap: 8px; }
 .tag { padding: 8px 14px; border: 1px solid var(--line); border-radius: 999px; font-size: 14px; color: var(--ink-2); }
@@ -410,6 +443,7 @@ footer nav a:hover { color: var(--ink); }
   .org-tier:not(:first-child)::before { height: 24px; top: 8px; }
   .org-tier:not(:first-child)::after, .org-tier:not(:first-child) .org-card::before { display: none; }
   .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .service { grid-column: auto; }
   .gallery { grid-template-columns: repeat(2, 1fr); }
   .client-grid { grid-template-columns: repeat(3, 1fr); }
 }
@@ -429,7 +463,7 @@ footer nav a:hover { color: var(--ink); }
   .menu-toggle[aria-expanded="true"] span::before { transform: translateY(5px) rotate(45deg); }
   .menu-toggle[aria-expanded="true"] span::after { transform: translateY(-5px) rotate(-45deg); }
 
-  .hero-grid, .vm, .quality-grid, .contact-card { grid-template-columns: 1fr; }
+  .hero-grid, .vm, .quality-grid, .contact-card, .detail-grid { grid-template-columns: 1fr; }
   .hero-media img { aspect-ratio: 4 / 3; }
   .hero-badge { left: 16px; bottom: 16px; }
   .stats { grid-template-columns: repeat(2, 1fr); }
@@ -446,6 +480,8 @@ footer nav a:hover { color: var(--ink); }
   .gallery { grid-template-columns: 1fr; grid-auto-rows: 240px; }
   .shot.tall { grid-row: span 1; }
   .shot.wide { grid-column: span 1; }
+  .detail-gallery { grid-template-columns: 1fr; }
+  .detail-gallery .shot:first-child:nth-last-child(odd) { grid-column: auto; }
   .client-grid { grid-template-columns: repeat(2, 1fr); }
   .people { grid-template-columns: 1fr; }
   .brand-name small { display: none; }

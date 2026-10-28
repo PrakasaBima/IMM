@@ -21,12 +21,12 @@ export const navLinks = [
 
 export const stats = [
   { value: 14, label: 'Lingkup kerja' },
-  { value: 24, suffix: '+', label: 'Klien' },
+  { value: 50, suffix: '+', label: 'Klien' },
   { value: 2, label: 'Partner teknologi' },
   { value: 1, label: 'Workshop di Batam' },
 ];
 
-export const vision = 'Menjadi mitra yang kompeten, profesional, aman, dan berkualitas.';
+export const vision = 'Perusahaan yang berkompeten, profesional, aman dan bermutu dalam penjualan, mitra layanan, dan mitra bisnis yang selalu memenuhi kebutuhan pelanggan.';
 
 export const mission = [
   'Produk berkualitas & kompetitif',
@@ -35,15 +35,101 @@ export const mission = [
   'Inovasi yang memberi nilai tambah',
 ];
 
+// `slug` = alamat halaman detail (/layanan/<slug>); `detail` = isi halaman detail.
+// `images` mengacu ke file di public/img dan boleh dikosongkan.
 export const services = [
-  { icon: 'flame', title: 'Steam Boiler', desc: 'Instalasi, commissioning, dan perawatan.' },
-  { icon: 'pipe', title: 'Piping & Ducting', desc: 'Fabrikasi dan instalasi jalur pipa.' },
-  { icon: 'bolt', title: 'Electrical & Panel', desc: 'Kelistrikan, panel kontrol, penerangan.' },
-  { icon: 'chip', title: 'Automation', desc: 'Mesin otomatis, conveyor, retrofit.' },
-  { icon: 'wrench', title: 'Fabrication & Machining', desc: 'Jig, fixture, tool & die presisi.' },
-  { icon: 'refresh', title: 'Repair & Overhaul', desc: 'Overhaul ME/AE dan stern shaft.' },
-  { icon: 'lifebuoy', title: 'Marine Safety', desc: 'Servis lifeboat dan alat keselamatan kapal.' },
-  { icon: 'search', title: 'NDT & Maintenance', desc: 'Inspeksi NDT dan perawatan berkala.' },
+  {
+    slug: 'piping-ducting',
+    icon: 'ship',
+    title: 'Piping & Ducting',
+    desc: 'Fabrikasi dan instalasi jalur pipa.',
+    detail: {
+      intro: 'Fabrikasi, pengelasan, dan instalasi jalur pipa serta sistem ducting untuk area pabrik dan industri.',
+      scope: [
+        'Fabrikasi & pengelasan pipa',
+        'Instalasi jalur pipa & flange',
+        'Instalasi sistem ducting',
+        'Repair & assembly cooling system',
+      ],
+      images: [
+        { img: 'piping.jpg', alt: 'Fabrikasi jalur pipa dan flange' },
+        { img: 'ducting.jpg', alt: 'Instalasi sistem ducting di area pabrik' },
+      ],
+    },
+  },
+  {
+    slug: 'offshore',
+    icon: 'rig',
+    title: 'Offshore',
+    desc: 'Kelistrikan, panel kontrol, penerangan.',
+    detail: {
+      intro: 'Perbaikan dan perawatan permesinan kapal serta peralatan keselamatan, dikerjakan di workshop maupun langsung di atas kapal.',
+      scope: [
+        'Overhaul ME & AE',
+        'Overhaul stern shaft (STAFA)',
+        'Overhaul windlass',
+        'Cleaning air cooler ME - AE',
+        'Centreless connecting rod',
+        'Service lifeboat (skoci)',
+        'Carpenter & interior kapal',
+      ],
+      images: [
+        { img: 'marine-safety.jpg', alt: 'Pengiriman lifeboat untuk servis' },
+        { img: 'reconditioning.jpg', alt: 'Pengukuran presisi saat rekondisi komponen' },
+      ],
+    },
+  },
+  {
+    slug: 'manufacturing',
+    icon: 'factory',
+    title: 'Manufacturing',
+    desc: 'Mesin otomatis, conveyor, retrofit.',
+    detail: {
+      intro: 'Desain, pembuatan, dan instalasi peralatan otomasi untuk industri semikonduktor, makanan, dan manufaktur, termasuk upgrade dan retrofit mesin yang sudah ada.',
+      scope: [
+        'Tool & die system',
+        'Product tester',
+        'Wire coiling system',
+        'Inspection system',
+        'Packaging system',
+        'Jig & fixture',
+        'Conveyor system & panel control',
+      ],
+      images: [{ img: 'automation.jpg', alt: 'Desain 3D mesin otomasi' }],
+    },
+  },
+  {
+    slug: 'civil',
+    icon: 'wrench',
+    title: 'Civil',
+    desc: 'Jig, fixture, tool & die presisi.',
+    detail: {
+      intro: 'Pekerjaan konstruksi sipil dan perawatan bangunan, dari renovasi hingga instalasi utilitas.',
+      scope: [
+        'Konstruksi sipil',
+        'Renovasi & perawatan bangunan',
+        'Instalasi kelistrikan & penerangan',
+        'Perawatan unit HVAC',
+        'Heavy equipment service',
+      ],
+      images: [
+        { img: 'electrical.jpg', alt: 'Instalasi kabel tray dan penerangan' },
+        { img: 'maintenance.jpg', alt: 'Perawatan unit outdoor HVAC' },
+        { img: 'overhaul.jpg', alt: 'Overhaul alat berat di lapangan' },
+      ],
+    },
+  },
+  {
+    slug: 'continuous-improvement',
+    icon: 'infinity',
+    title: 'Continous Improvement & Recruitment Agency',
+    desc: 'Overhaul ME/AE dan stern shaft.',
+    detail: {
+      intro: 'Pendampingan perbaikan berkelanjutan pada proses kerja, serta penyediaan tenaga kerja sesuai kebutuhan proyek.',
+      scope: ['Continuous improvement proses kerja', 'Rekrutmen & penyediaan tenaga kerja'],
+      images: [],
+    },
+  },
 ];
 
 export const jobScope = [
@@ -133,29 +219,20 @@ export const organization = [
     members: [
       { name: 'Robert Dwi Putra', role: 'General Manager' },
       { name: 'Suparman', role: 'Operational Manager' },
-      { name: 'M Alfi', role: 'CI', 
-        team: 
-        [{ name: 'Agit', role: 'Staff CI' }] 
-      },
+      { name: 'Mohammad Alfi', role: 'Head of CI & Recruitment Agency', team: [{ name: 'Agit Pratama', role: 'Head of Operation' }] },
     ],
   },
   {
     level: 'Kepala Divisi',
     members: [
-      { name: 'Aris Pardomuan S', role: 'Senior Marketing' },
+      { name: 'Aris Pardomuan S', role: 'Senior Marketing', team: [{ name: null, role: 'Marketing' }] },
       { name: 'Safix Alfian', role: 'Designer' },
-      { name: 'Ariawati', role: 'FA & Procurement' },
-      { name: 'Alya Maslihatul Salsa', role: 'HRD' },
-      { name: 'Heri Tri Handoko', role: 'Engineering' },
+      { name: 'Ariawati', role: 'Admin & Procurement' },
+      { name: 'Nadia', role: 'HRD' },
+      { name: 'Heri Tri Handoko', role: 'Engineering', team: [{ name: 'Budi', role: 'Fabrication' }, { name: 'Habitra', role: 'Technician' }] }
     ],
   },
-  {
-    level: 'Tim Lapangan',
-    members: [
-      { name: null, role: 'Marketing', note: 'Senior Marketing' },
-      { name: 'Budi', role: 'Fabrication', note: 'Engineering' },
-      { name: 'Habitra', role: 'Technician', note: 'Fabrication' },    ],
-  },
+
 ];
 
 export const contactPersons = [
