@@ -1,0 +1,8 @@
+# Jangan ikut terunggah saat deploy dari komputer lokal (vercel / vercel --prod)
+.env
+.env.*
+!.env.example
+.data
+public/uploads
+dist
+node_modules
